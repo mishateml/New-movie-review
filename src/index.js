@@ -1,11 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-<<<<<<< HEAD
-import "bootstrap/dist/css/bootstrap.min.css";
-
-ReactDOM.render(<App />, document.getElementById("root"));
-=======
 import * as serviceWorker from "./serviceWorker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,4 +12,3 @@ ReactDOM.render(<App />, document.getElementById("root"));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
->>>>>>> header
