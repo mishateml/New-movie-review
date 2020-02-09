@@ -1,11 +1,30 @@
 import React, { Component } from "react";
-import axios, { key } from "../../axios-data";
+import axios, { key, baseImgUrl } from "../../axios-data";
+
 import classes from "./ListOfMovies.module.css";
+import { Row } from "react-bootstrap";
+
+import ListItem from "../../components/ListItem/ListItem";
+import { Item } from "react-bootstrap/lib/Breadcrumb";
 
 class ListOfMovies extends Component {
   state = {
     data: {}
   };
+
+  mapDataArry = arr => {
+    const movieList = arr.map(item => {
+      return (
+        <ListItem
+          title={item.name}
+          about={item.overview}
+          poster={baseImgUrl + item.poster_path}
+        />
+      );
+    });
+    return movieList;
+  };
+
   getDataForLastWeek = (filter, key) => {
     axios
       .get(
@@ -28,13 +47,26 @@ class ListOfMovies extends Component {
         // always executed
       });
   };
-
+const list =null;
   componentDidMount() {
     this.getDataForLastWeek(null, key);
+
   }
 
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <Row className="justify-content-around">
+          <ListItem
+            title={item.name}
+            about={item.overview}
+            poster={baseImgUrl + item.poster_path}
+          />
+          <ListItem />
+          <ListItem />
+        </Row>
+      </div>
+    );
   }
 }
 

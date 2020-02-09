@@ -14,11 +14,11 @@ class MainRoom extends Component {
         <Header />
         <Container>
           <Row>
-            <Col>Catagories</Col>
+            <Col md={1}>Catagories</Col>
             <Col>
               <ListOfMovies />
             </Col>
-            <Col>Filleter</Col>
+            <Col md={1}>Filleter</Col>
           </Row>
         </Container>
 
