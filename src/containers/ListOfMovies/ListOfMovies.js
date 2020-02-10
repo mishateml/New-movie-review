@@ -5,24 +5,10 @@ import classes from "./ListOfMovies.module.css";
 import { Row } from "react-bootstrap";
 
 import ListItem from "../../components/ListItem/ListItem";
-import { Item } from "react-bootstrap/lib/Breadcrumb";
 
 class ListOfMovies extends Component {
   state = {
     data: {}
-  };
-
-  mapDataArry = arr => {
-    const movieList = arr.map(item => {
-      return (
-        <ListItem
-          title={item.name}
-          about={item.overview}
-          poster={baseImgUrl + item.poster_path}
-        />
-      );
-    });
-    return movieList;
   };
 
   getDataForLastWeek = (filter, key) => {
@@ -37,7 +23,7 @@ class ListOfMovies extends Component {
         this.setState({
           data: response.data.results
         });
-        console.log(this.state.data);
+        this.mapDataArry(this.state.data, null);
       })
       .catch(function(error) {
         // handle error
@@ -47,23 +33,37 @@ class ListOfMovies extends Component {
         // always executed
       });
   };
-const list =null;
   componentDidMount() {
     this.getDataForLastWeek(null, key);
-
   }
 
+  mapDataArry = obj => {
+    let dataArr = [];
+    for (let item in obj) {
+      dataArr.push(obj[item]);
+    }
+    let mappedArr;
+
+    mappedArr = dataArr.map(item => {
+      return (
+        <ListItem
+          key={item.id}
+          title={item.name}
+          about={item.overview}
+          poster={baseImgUrl + item.poster_path}
+        />
+      );
+    });
+    return mappedArr;
+  };
   render() {
+    let dataListToPrasent = [];
+    dataListToPrasent = this.mapDataArry(this.state.data, null);
+
     return (
       <div>
         <Row className="justify-content-around">
-          <ListItem
-            title={item.name}
-            about={item.overview}
-            poster={baseImgUrl + item.poster_path}
-          />
-          <ListItem />
-          <ListItem />
+          {dataListToPrasent.map(item => item)}
         </Row>
       </div>
     );
