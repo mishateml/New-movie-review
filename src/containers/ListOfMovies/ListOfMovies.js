@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios, { key, baseImgUrl } from "../../axios-data";
 
 import classes from "./ListOfMovies.module.css";
-import { Row } from "react-bootstrap";
+import { Row, CardGroup } from "react-bootstrap";
 
 import ListItem from "../../components/ListItem/ListItem";
 
@@ -63,7 +63,7 @@ class ListOfMovies extends Component {
     return (
       <div>
         <Row className="justify-content-around">
-          {dataListToPrasent.map(item => item)}
+          <CardGroup>{dataListToPrasent.map(item => item)}</CardGroup>
         </Row>
       </div>
     );
