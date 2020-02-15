@@ -8,15 +8,41 @@ import ListItem from "../../components/ListItem/ListItem";
 
 class ListOfMovies extends Component {
   state = {
-    data: {}
+    data: {},
+    page: 1
   };
 
-  getDataForLastWeek = (filter, key) => {
+  static getDerivedStateFromProps(props, state) {
+    if (props.page !== state.page) {
+      return {
+        page: props.page
+      };
+    }
+    return null;
+  }
+  shouldComponentUpdate() {
+    console.log(
+      `[shouldComponentUpdate]=work ${this.props.page === this.state.page}`
+    );
+    this.getDataForLastWeek(key, this.state.page);
+
+    return this.props.page === this.state.page;
+  }
+
+  selectOtherPage = page => {
+    this.setState({
+      page: page
+    });
+  };
+
+  getDataForLastWeek = (key, page) => {
     axios
       .get(
         "discover/tv?api_key=" +
           key +
-          "&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false"
+          "&language=en-US&sort_by=popularity.desc&page=" +
+          page +
+          "&timezone=America%2FNew_York&include_null_first_air_dates=false"
       )
       .then(response => {
         // handle success
@@ -34,7 +60,7 @@ class ListOfMovies extends Component {
       });
   };
   componentDidMount() {
-    this.getDataForLastWeek(null, key);
+    this.getDataForLastWeek(key, this.state.page);
   }
 
   mapDataArry = obj => {
