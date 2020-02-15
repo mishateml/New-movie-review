@@ -6,7 +6,7 @@ import { Row, Col } from "react-bootstrap";
 
 import Header from "../../components/Header/Header";
 import ListOfMovies from "../../containers/ListOfMovies/ListOfMovies";
-
+import Pagination from "../../components/Pagination/Pagination";
 class MainRoom extends Component {
   render() {
     return (
@@ -19,6 +19,11 @@ class MainRoom extends Component {
               <ListOfMovies />
             </Col>
             <Col md={1}>Filleter</Col>
+          </Row>
+          <Row>
+            <Col>
+              <Pagination />
+            </Col>
           </Row>
         </Container>
 
