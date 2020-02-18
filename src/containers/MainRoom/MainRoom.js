@@ -7,6 +7,7 @@ import { Row, Col } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import ListOfMovies from "../../containers/ListOfMovies/ListOfMovies";
 import Pagination from "../../components/Pagination/Pagination";
+import Catagories from "../../components/Catagories/Catagories";
 class MainRoom extends Component {
   state = {
     currentPageNumber: 1
@@ -26,7 +27,9 @@ class MainRoom extends Component {
         <Header />
         <Container>
           <Row>
-            <Col md={1}>Catagories</Col>
+            <Col md={1}>
+              <Catagories />
+            </Col>
             <Col>
               <ListOfMovies page={this.state.currentPageNumber} />
             </Col>
