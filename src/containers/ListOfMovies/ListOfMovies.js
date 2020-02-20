@@ -20,13 +20,10 @@ class ListOfMovies extends Component {
     }
     return null;
   }
-  shouldComponentUpdate() {
-    console.log(
-      `[shouldComponentUpdate]=work ${this.props.page === this.state.page}`
-    );
-    this.getDataForLastWeek(key, this.state.page);
-
-    return this.props.page === this.state.page;
+  componentDidUpdate(prevProps) {
+    if (this.props.page !== prevProps.page) {
+      this.getDataForLastWeek(key, this.state.page);
+    }
   }
 
   selectOtherPage = page => {
