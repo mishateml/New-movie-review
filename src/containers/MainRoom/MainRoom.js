@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 // bootstrap react
 import Button from "react-bootstrap/Button";
+import axios, { key } from "../../axios-data";
+
 import Container from "react-bootstrap/Container";
 import { Row, Col } from "react-bootstrap";
 
@@ -11,8 +13,30 @@ import Catagories from "../../components/Catagories/Catagories";
 class MainRoom extends Component {
   state = {
     currentPageNumber: 1,
-    catagories: null
+    catagories: []
   };
+  getCatData = (axios, key) => {
+    axios
+      .get("genre/movie/list?api_key=" + key + "&language=en-US")
+      .then(response => {
+        let arr = [];
+        const res = response.data.genres;
+        for (let i in res) {
+          arr.push(res[i]);
+        }
+        console.log(arr);
+
+        this.setState({ catagories: arr });
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    this.getCatData(axios, key);
+  }
 
   selectPaginationPage = page => {
     const pgCopy = { ...this.state };
@@ -23,12 +47,14 @@ class MainRoom extends Component {
   };
 
   render() {
+    console.log(this.state.Catagories);
+
     return (
       <div>
         <Header />
         <Container>
           <Row>
-            <Col md={1}>
+            <Col md={2}>
               <Catagories cat={this.state.catagories} />
             </Col>
             <Col>

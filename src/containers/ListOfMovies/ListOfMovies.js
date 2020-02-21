@@ -46,7 +46,7 @@ class ListOfMovies extends Component {
         this.setState({
           data: response.data.results
         });
-        this.mapDataArry(this.state.data, null);
+        // this.mapDataArry(this.state.data, null);
       })
       .catch(function(error) {
         // handle error
@@ -80,13 +80,13 @@ class ListOfMovies extends Component {
     return mappedArr;
   };
   render() {
-    let dataListToPrasent = [];
-    dataListToPrasent = this.mapDataArry(this.state.data, null);
+    let dataListToPresent = [];
+    dataListToPresent = this.mapDataArry(this.state.data, null);
 
     return (
       <div>
         <Row className="justify-content-around">
-          <CardGroup>{dataListToPrasent.map(item => item)}</CardGroup>
+          <CardGroup>{dataListToPresent.map(item => item)}</CardGroup>
         </Row>
       </div>
     );
