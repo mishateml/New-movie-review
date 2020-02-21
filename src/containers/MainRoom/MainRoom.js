@@ -10,7 +10,8 @@ import Pagination from "../../components/Pagination/Pagination";
 import Catagories from "../../components/Catagories/Catagories";
 class MainRoom extends Component {
   state = {
-    currentPageNumber: 1
+    currentPageNumber: 1,
+    catagories: null
   };
 
   selectPaginationPage = page => {
@@ -19,8 +20,8 @@ class MainRoom extends Component {
     this.setState({
       ...pgCopy
     });
-    console.log(`[MainRoom]state=${this.state.currentPageNumber}`);
   };
+
   render() {
     return (
       <div>
@@ -28,7 +29,7 @@ class MainRoom extends Component {
         <Container>
           <Row>
             <Col md={1}>
-              <Catagories />
+              <Catagories cat={this.state.catagories} />
             </Col>
             <Col>
               <ListOfMovies page={this.state.currentPageNumber} />
