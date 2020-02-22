@@ -9,7 +9,8 @@ import ListItem from "../../components/ListItem/ListItem";
 class ListOfMovies extends Component {
   state = {
     data: {},
-    page: 1
+    page: 1,
+    catArr: []
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -23,6 +24,11 @@ class ListOfMovies extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.page !== prevProps.page) {
       this.getDataForLastWeek(key, this.state.page);
+    }
+    if (this.props.cat !== prevProps.cat) {
+      this.setState({
+        catArr: this.props.cat
+      });
     }
   }
 
@@ -60,9 +66,12 @@ class ListOfMovies extends Component {
     this.getDataForLastWeek(key, this.state.page);
   }
 
-  mapDataArry = obj => {
+  mapDataArry = (obj, filter) => {
     let dataArr = [];
     for (let item in obj) {
+      console.log(obj[item].genre_ids.some(e => this.props.cat.includes(e)));
+      // A.some(e => B.includes(e) ) #TODO
+
       dataArr.push(obj[item]);
     }
     let mappedArr;

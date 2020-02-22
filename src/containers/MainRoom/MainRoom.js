@@ -13,7 +13,8 @@ import Catagories from "../../components/Catagories/Catagories";
 class MainRoom extends Component {
   state = {
     currentPageNumber: 1,
-    catagories: []
+    catagories: [],
+    selectedCatagories: []
   };
   getCatData = (axios, key) => {
     axios
@@ -24,7 +25,6 @@ class MainRoom extends Component {
         for (let i in res) {
           arr.push(res[i]);
         }
-        console.log(arr);
 
         this.setState({ catagories: arr });
       })
@@ -46,19 +46,29 @@ class MainRoom extends Component {
     });
   };
 
-  render() {
-    console.log(this.state.Catagories);
+  selectedCatagoriesHandler = arrOfCat => {
+    this.setState({
+      selectedCatagories: arrOfCat
+    });
+  };
 
+  render() {
     return (
       <div>
         <Header />
         <Container>
           <Row>
             <Col md={2}>
-              <Catagories cat={this.state.catagories} />
+              <Catagories
+                cat={this.state.catagories}
+                selected={this.selectedCatagoriesHandler}
+              />
             </Col>
             <Col>
-              <ListOfMovies page={this.state.currentPageNumber} />
+              <ListOfMovies
+                page={this.state.currentPageNumber}
+                cat={this.state.selectedCatagories}
+              />
             </Col>
             <Col md={1}>Filleter</Col>
           </Row>

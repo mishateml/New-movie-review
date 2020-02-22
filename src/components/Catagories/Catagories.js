@@ -10,10 +10,6 @@ const catagories = props => {
       </ToggleButton>
     );
   });
-  console.log(arr);
-  const valHandler = val => {
-    console.log(val);
-  };
 
   return (
     <Container className="mt-3 ">
@@ -21,7 +17,7 @@ const catagories = props => {
         type="checkbox"
         name="cat"
         vertical
-        onChange={valHandler}
+        onChange={props.selected}
       >
         {arr}
       </ToggleButtonGroup>
