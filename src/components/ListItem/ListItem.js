@@ -8,7 +8,7 @@ const ListItem = props => {
   return (
     <div className={classes.CardInList}>
       <Accordion>
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "15rem" }}>
           <Card.Img variant="top" src={props.poster} />
           <Card.Body>
             <Card.Title>{props.title}</Card.Title>

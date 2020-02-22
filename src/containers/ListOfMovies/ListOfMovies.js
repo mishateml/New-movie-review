@@ -9,7 +9,8 @@ import ListItem from "../../components/ListItem/ListItem";
 class ListOfMovies extends Component {
   state = {
     data: {},
-    page: 1
+    page: 1,
+    catArr: []
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -20,13 +21,15 @@ class ListOfMovies extends Component {
     }
     return null;
   }
-  shouldComponentUpdate() {
-    console.log(
-      `[shouldComponentUpdate]=work ${this.props.page === this.state.page}`
-    );
-    this.getDataForLastWeek(key, this.state.page);
-
-    return this.props.page === this.state.page;
+  componentDidUpdate(prevProps) {
+    if (this.props.page !== prevProps.page) {
+      this.getDataForLastWeek(key, this.state.page);
+    }
+    if (this.props.cat !== prevProps.cat) {
+      this.setState({
+        catArr: this.props.cat
+      });
+    }
   }
 
   selectOtherPage = page => {
@@ -38,18 +41,23 @@ class ListOfMovies extends Component {
   getDataForLastWeek = (key, page) => {
     axios
       .get(
-        "discover/tv?api_key=" +
+        "discover/movie?api_key=" +
           key +
-          "&language=en-US&sort_by=popularity.desc&page=" +
+          "&page=" +
           page +
-          "&timezone=America%2FNew_York&include_null_first_air_dates=false"
+          "&sort_by=popularity.desc"
+        // "discover/tv?api_key=" +
+        //   key +
+        //   "&language=en-US&sort_by=popularity.desc&page=" +
+        //   page +
+        //   "&timezone=America%2FNew_York&include_null_first_air_dates=false"
       )
       .then(response => {
         // handle success
         this.setState({
           data: response.data.results
         });
-        this.mapDataArry(this.state.data, null);
+        // this.mapDataArry(this.state.data, null);
       })
       .catch(function(error) {
         // handle error
@@ -63,10 +71,17 @@ class ListOfMovies extends Component {
     this.getDataForLastWeek(key, this.state.page);
   }
 
-  mapDataArry = obj => {
+  mapDataArry = (obj, filter) => {
     let dataArr = [];
     for (let item in obj) {
-      dataArr.push(obj[item]);
+      if (this.state.catArr.length === 0) {
+        dataArr.push(obj[item]);
+      } else if (obj[item].genre_ids.some(e => this.props.cat.includes(e))) {
+        dataArr.push(obj[item]);
+      }
+
+      // console.log(obj[item].genre_ids.some(e => this.props.cat.includes(e)));
+      // A.some(e => B.includes(e) ) #TODO
     }
     let mappedArr;
 
@@ -83,13 +98,13 @@ class ListOfMovies extends Component {
     return mappedArr;
   };
   render() {
-    let dataListToPrasent = [];
-    dataListToPrasent = this.mapDataArry(this.state.data, null);
+    let dataListToPresent = [];
+    dataListToPresent = this.mapDataArry(this.state.data, null);
 
     return (
       <div>
         <Row className="justify-content-around">
-          <CardGroup>{dataListToPrasent.map(item => item)}</CardGroup>
+          <CardGroup>{dataListToPresent.map(item => item)}</CardGroup>
         </Row>
       </div>
     );
