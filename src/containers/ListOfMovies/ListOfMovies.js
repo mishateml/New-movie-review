@@ -41,11 +41,16 @@ class ListOfMovies extends Component {
   getDataForLastWeek = (key, page) => {
     axios
       .get(
-        "discover/tv?api_key=" +
+        "discover/movie?api_key=" +
           key +
-          "&language=en-US&sort_by=popularity.desc&page=" +
+          "&page=" +
           page +
-          "&timezone=America%2FNew_York&include_null_first_air_dates=false"
+          "&sort_by=popularity.desc"
+        // "discover/tv?api_key=" +
+        //   key +
+        //   "&language=en-US&sort_by=popularity.desc&page=" +
+        //   page +
+        //   "&timezone=America%2FNew_York&include_null_first_air_dates=false"
       )
       .then(response => {
         // handle success
@@ -69,10 +74,14 @@ class ListOfMovies extends Component {
   mapDataArry = (obj, filter) => {
     let dataArr = [];
     for (let item in obj) {
-      console.log(obj[item].genre_ids.some(e => this.props.cat.includes(e)));
-      // A.some(e => B.includes(e) ) #TODO
+      if (this.state.catArr.length === 0) {
+        dataArr.push(obj[item]);
+      } else if (obj[item].genre_ids.some(e => this.props.cat.includes(e))) {
+        dataArr.push(obj[item]);
+      }
 
-      dataArr.push(obj[item]);
+      // console.log(obj[item].genre_ids.some(e => this.props.cat.includes(e)));
+      // A.some(e => B.includes(e) ) #TODO
     }
     let mappedArr;
 
