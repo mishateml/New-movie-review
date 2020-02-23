@@ -1,0 +1,1 @@
+{"version":3,"sources":["Header.module.css","ListItem.module.css"],"names":[],"mappings":"AAAA,oBACE,WAAY,CACZ,WACF,CCHA,4BACE,iBACF","file":"main.1f1d0e5e.chunk.css","sourcesContent":[".Logo {\r\n  width: 180px;\r\n  height: auto;\r\n}\r\n",".CardInList {\r\n  margin: 1rem 0.5rem;\r\n}\r\n"]}
