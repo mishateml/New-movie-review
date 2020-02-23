@@ -20,15 +20,12 @@ const header = props => {
         <Image className={classes.Logo} src={logo} roundedCircle />
       </Navbar.Brand>
       <Nav className="mr-auto">
-        <h3>Lorem, ipsum dolor </h3>
-        {/* #TO do add later
-        <Nav.Link href="#home">Home</Nav.Link>
-        <Nav.Link href="#link">Link</Nav.Link> */}
+        <h3>Explore All New Releases </h3>
       </Nav>
-      <Button className="mr-2" variant="outline-success">
+      {/* <Button className="mr-2" variant="outline-success">
         Log In
       </Button>
-      <Button variant="outline-success">Singh in</Button>
+      <Button variant="outline-success">Singh in</Button> */}
     </Navbar>
   );
 };
